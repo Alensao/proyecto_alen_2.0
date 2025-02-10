@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="course.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="proyecto2.0_alen_cedeno.cpp" />
+    <ClCompile Include="schedule.cpp" />
+    <ClCompile Include="sistema_matricula.cpp" />
+    <ClCompile Include="student.cpp" />
+    <ClCompile Include="student_node.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="course.h" />
+    <ClInclude Include="schedule.h" />
+    <ClInclude Include="sistema_matricula.h" />
+    <ClInclude Include="student.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

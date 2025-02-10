@@ -1,2 +1,9 @@
-﻿  proyecto2.0_alen_cedeno.cpp
-  proyecto2.0_alen_cedeno.vcxproj -> C:\progra\proyecto2.0_alen_cedeno\x64\Debug\proyecto2.0_alen_cedeno.exe
+﻿  course.cpp
+  main.cpp
+  proyecto2.0_alen_cedeno.cpp
+  schedule.cpp
+  sistema_matricula.cpp
+  student.cpp
+  student_node.h
+  Generando código...
+  proyecto2.0_alen_cedeno.vcxproj -> C:\Users\alenc\OneDrive\Escritorio\proyecto2.0_alen_cedeno\x64\Debug\proyecto2.0_alen_cedeno.exe

@@ -1,0 +1,2 @@
+12345678,programacio,Ncr200
+2,a,12

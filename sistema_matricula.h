@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+
+#include <fstream>
+
 #include "student.h"
 #include "course.h"
 #include "schedule.h"
@@ -41,6 +44,8 @@ public:
     void showAvailableCourses();
     bool checkScheduleConflict(const Schedule& newSchedule, const std::string& courseName);
     bool hasApprovedCourses(const std::string& id, const std::string& prereq1, const std::string& prereq2);
+    void saveEnrollmentData(const std::string& id, const std::string& courseName, const std::string& group);
+    void loadEnrollmentData();
 };
 
 #endif

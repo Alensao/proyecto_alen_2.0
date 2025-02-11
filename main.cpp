@@ -12,6 +12,7 @@ void showMainMenu() {
     std::cout << "=============================================================\n";
     std::cout << "4. Consultar\n";
     std::cout << "=============================================================\n";
+    std::cout << "5. Ver Datos de Matrícula Cargados\n"; // Nueva opción
     std::cout << "Seleccione una opcion: \n";
     std::cout << "=============================================================\n";
 }
@@ -114,6 +115,10 @@ int main() {
         }
         case '4':
             showViewMenu(system);
+            break;
+        case '5': // Nueva opción para ver datos de matrícula
+            std::cout << "Cargando registros de matrícula...\n"; // Mensaje informativo
+            system.loadEnrollmentData(); // Cargar y mostrar datos
             break;
         default:
             std::cout << "Opcion invalida. Intentelo nuevamente.\n";

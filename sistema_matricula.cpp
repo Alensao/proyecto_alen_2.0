@@ -22,7 +22,7 @@ Course::Course(std::string name, std::string code, int credits, std::string prof
 }
 
 RegistrationSystem::RegistrationSystem() : headStudent(nullptr) {
-    // Inicialización de cursos y horarios
+    
 }
 
 RegistrationSystem::~RegistrationSystem() {
@@ -43,8 +43,8 @@ RegistrationSystem::~RegistrationSystem() {
     for (int i = 0; i < numSchedules; ++i) {
         delete schedules[i];
     }
-
 }
+
 void RegistrationSystem::about() {
     std::cout << "Sistema de registro\n";
     std::cout << "Creado por Est. Alen Cedeno\n";
@@ -72,8 +72,7 @@ void RegistrationSystem::maintenance() {
                 std::cout << "La cedula debe estar completa. Intente nuevamente: ";
                 std::getline(std::cin, id);
                 validID = false;
-            }
-            else {
+            } else {
                 for (size_t i = 0; i < id.length(); ++i) {
                     if (id[i] < '0' || id[i] > '9') {
                         validID = false;
@@ -94,21 +93,19 @@ void RegistrationSystem::maintenance() {
                 std::cout << "Por favor ingrese un nivel valido entre 1 y 10: ";
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
-            }
-            else {
+            } else {
                 break;
             }
         }
         std::cin.ignore();
 
         addStudent(name, id, career, level);
-    }
-    else if (subOption == 'b') {
+    } else if (subOption == 'b') {
         std::string name, code, professor, career;
         int credits;
         std::cout << "Ingrese el nombre del curso: ";
         std::getline(std::cin, name);
-        std::cout << "Ingrese el nombre del curso: ";
+        std::cout << "Ingrese la carrera del curso: ";
         std::getline(std::cin, career);
         std::cout << "Ingrese el codigo del curso: ";
         std::getline(std::cin, code);
@@ -120,8 +117,7 @@ void RegistrationSystem::maintenance() {
                 std::cout << "Por favor ingrese un numero de creditos valido: ";
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -140,8 +136,7 @@ void RegistrationSystem::maintenance() {
         std::getline(std::cin, prereq2);
 
         addCourse(name, code, credits, professor, group1, group2, prereq1, prereq2, career);
-    }
-    else if (subOption == 'c') {
+    } else if (subOption == 'c') {
         std::string day, startTime, endTime, room;
         std::cout << "Ingrese el dia del horario: ";
         std::getline(std::cin, day);
@@ -167,8 +162,7 @@ void RegistrationSystem::addStudent(std::string name, std::string id, std::strin
         StudentNode* newNode = new StudentNode(students[numStudents]);
         if (headStudent == nullptr) {
             headStudent = newNode; // Si la lista está vacía, el nuevo nodo es la cabeza
-        }
-        else {
+        } else {
             StudentNode* current = headStudent;
             while (current->next != nullptr) {
                 current = current->next; // Ir al final de la lista
@@ -178,12 +172,10 @@ void RegistrationSystem::addStudent(std::string name, std::string id, std::strin
 
         numStudents++;
         std::cout << "Estudiante agregado con éxito.\n";
-    }
-    else {
+    } else {
         std::cout << "Se alcanzó el número máximo de estudiantes.\n";
     }
 }
-
 
 void RegistrationSystem::addCourse(std::string name, std::string code, int credits, std::string professor, std::string group1, std::string group2, std::string prereq1, std::string prereq2, std::string career) {
     if (numCourses < MAX_COURSES) {
@@ -199,8 +191,7 @@ void RegistrationSystem::addCourse(std::string name, std::string code, int credi
 
         numCourses++;
         std::cout << "Curso agregado con exito.\n";
-    }
-    else {
+    } else {
         std::cout << "Se alcanzo el numero maximo de cursos.\n";
     }
 }
@@ -218,8 +209,7 @@ void RegistrationSystem::addSchedule(std::string day, std::string startTime, std
     if (numSchedules < MAX_SCHEDULES) {
         schedules[numSchedules] = new Schedule(day, startTime, endTime, room, ""); // Puedes pasar el profesor si es necesario
         numSchedules++;
-    }
-    else {
+    } else {
         std::cout << "Se alcanzo el numero maximo de horarios.\n";
     }
 }
@@ -266,9 +256,6 @@ void RegistrationSystem::registerEnrollment() {
 
                 for (int j = 0; j < MAX_APPROVED_COURSES; j++) {
                     if (students[i]->approvedCourses[j] == courseCode) {
-
-
-
                         std::cout << "Error: Este curso ya fue aprobado por el estudiante.\n";
                         return; // Regresar al menú
                     }
@@ -313,11 +300,13 @@ void RegistrationSystem::registerEnrollment() {
                             students[j]->numCourses++;
                             courses[i]->availableSlots[groupIndex]--; // Disminuir el cupo disponible
                             std::cout << "Inscripcion exitosa en el curso: " << courses[i]->name << " en el grupo " << selectedGroup << "\n";
+                            
+                            // Guardar datos de matrícula
+                            saveEnrollmentData(id, courses[i]->name, selectedGroup);
                             break;
                         }
                     }
-                }
-                else {
+                } else {
                     std::cout << "El grupo seleccionado no tiene cupos disponibles.\n";
                 }
                 break;
@@ -326,8 +315,7 @@ void RegistrationSystem::registerEnrollment() {
         if (!courseFound) {
             std::cout << "Curso no encontrado.\n";
         }
-    }
-    else {
+    } else {
         std::cout << "Estudiante no registrado.\n";
     }
 }
@@ -340,7 +328,7 @@ void RegistrationSystem::viewStudents() {
     StudentNode* current = headStudent;
     while (current != nullptr) {
         std::cout << current->student->name << "\t\t" << current->student->id << "\t\t"
-            << current->student->career << "\t\t" << current->student->level << "\t";
+                  << current->student->career << "\t\t" << current->student->level << "\t";
         for (int j = 0; j < current->student->numCourses; j++) {
             std::cout << current->student->courses[j] << " ";
         }
@@ -409,3 +397,48 @@ bool RegistrationSystem::checkScheduleConflict(const Schedule& newSchedule, cons
     return false;
 }
 
+void RegistrationSystem::saveEnrollmentData(const std::string& id, const std::string& courseName, const std::string& group) {
+    std::ofstream outFile("matriculas.txt", std::ios::app);
+    if (outFile.is_open()) {
+        outFile << id << "," << courseName << "," << group << "\n";
+        outFile.close();
+    } else {
+        std::cerr << "Error al abrir el archivo para guardar datos de matrícula.\n";
+    }
+}
+
+void RegistrationSystem::loadEnrollmentData() {
+    std::ifstream inFile("matriculas.txt");
+    if (inFile.is_open()) {
+        std::string line;
+        while (std::getline(inFile, line)) {
+            std::string id, courseName, group;
+            size_t pos = 0;
+            std::string delimiter = ","; // Delimitador para CSV
+
+            // Obtener ID
+            pos = line.find(delimiter);
+            if (pos != std::string::npos) {
+                id = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+            }
+
+            // Obtener Course Name
+            pos = line.find(delimiter);
+            if (pos != std::string::npos) {
+                courseName = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+            }
+
+            // Obtener Group
+            group = line; // El resto de la línea es el grupo
+
+            // Aquí puedes procesar los datos cargados si es necesario
+            std::cout << "Cargado: ID=" << id << ", Curso=" << courseName << ", Grupo=" << group << "\n";
+        }
+        inFile.close();
+    }
+    else {
+        std::cerr << "Error al abrir el archivo para cargar datos de matrícula.\n";
+    }
+}
